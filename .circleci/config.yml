@@ -78,6 +78,8 @@ jobs:
           name: Test front-end
           command: |
             cd frontend
+            npm cache clean --force
+            rm -rf node_modules
             npm install
             npm run test       #Apply npm unit test for the app code
       - save_cache:
@@ -95,6 +97,8 @@ jobs:
           name: Test Back-end 
           command: |
             cd backend
+            npm cache clean --force
+            rm -rf node_modules
             npm install
             npm run test         #use npm run test to Unit test the code
       - save_cache:
