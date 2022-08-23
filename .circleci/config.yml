@@ -48,6 +48,8 @@ jobs:
             npm install     #Installing project dependencies
             npm run build
             ls  #found that a new folder is created (dist) to contain our built project
+            cd dist
+            ls
       - save_cache:
           paths: [frontend/node_modules]  #default path of installing npm package manager dependencies
           key: frontend-build
