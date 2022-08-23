@@ -21,17 +21,21 @@ commands:
               sudo apt install software-properties-common -y
               sudo add-apt-repository --yes --update ppa:ansible/ansible
               sudo apt install ansible -y
-#   destroy-environment:
-#     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-#     parameters:
-#       # Add parameter here   
-#     steps:
-#       - run:
-#           name: Destroy environments
-#           when: on_fail
-#           command: |
-#             # Your code here
-#             #exit 1
+    destroy-environment:
+      description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+      parameters:
+        # Add parameter here   
+      steps:
+        - run:
+            name: Destroy environments
+            when: on_fail
+            command: |
+              echo "Destroying FE | BE infrastructure"
+              #aws s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
+              aws cloudformation delete-stack --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"
+              aws cloudformation delete-stack --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+
+
 
 #   revert-migrations:
 #     description: Revert the last migration if successfully run in the current workflow.
@@ -201,11 +205,13 @@ jobs:
             --filters "Name=tag:Name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
             --output text    >> ~/project/.circleci/ansibleinventory.txt
             cat ~/project/.circleci/ansible/inventory.txt   #Verify
-            #exit 1 #intentional failure SCREENSHOT05
+            exit 1 #intentional failure SCREENSHOT05
       - persist_to_workspace:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
+
+      - destroy-environment
       
       # Here's where you will add some code to rollback on failure      
 
