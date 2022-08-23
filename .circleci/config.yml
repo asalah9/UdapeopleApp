@@ -47,7 +47,7 @@ jobs:
             ls
             npm install     #Installing project dependencies
             npm run build
-            ls
+            ls  #found that a new folder is created (dist) to contain our built project
       - save_cache:
           paths: [frontend/node_modules]  #default path of installing npm package manager dependencies
           key: frontend-build
@@ -137,7 +137,7 @@ jobs:
             cd backend
             npm install
             npm audit fix --audit-level=critical --force
-            npm audit fix --audit-level=critical --force
+            npm audit fix  --force
             npm audit --audit-level=critical
       - save_cache:
           paths: [backend/node_modules]
