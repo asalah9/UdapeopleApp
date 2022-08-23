@@ -44,8 +44,10 @@ jobs:
           name: Build front-end
           command: |
             cd frontend
-            npm install
+            ls
+            npm install     #Installing project dependencies
             npm run build
+            ls
       - save_cache:
           paths: [frontend/node_modules]  #default path of installing npm package manager dependencies
           key: frontend-build
