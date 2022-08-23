@@ -24,7 +24,9 @@ commands:
     destroy-environment:
       description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
       parameters:
-        # Add parameter here   
+          CIRCLE_WORKFLOW_ID: 
+            type: string
+            default:  {CIRCLE_WORKFLOW_ID:0:7}
       steps:
         - run:
             name: Destroy environments
@@ -32,8 +34,8 @@ commands:
             command: |
               echo "Destroying FE | BE infrastructure"
               #aws s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
-              aws cloudformation delete-stack --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}"
-              aws cloudformation delete-stack --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}"
+              aws cloudformation delete-stack --stack-name "udapeople-backend-<< parameters.CIRCLE_WORKFLOW_ID >>"
+              aws cloudformation delete-stack --stack-name "udapeople-frontend-<< parameters.CIRCLE_WORKFLOW_ID >>"
 
 
 
@@ -205,7 +207,7 @@ jobs:
             --filters "Name=tag:Name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
             --output text    >> ~/project/.circleci/ansibleinventory.txt
             cat ~/project/.circleci/ansible/inventory.txt   #Verify
-            exit 1 #intentional failure SCREENSHOT05
+           
       - persist_to_workspace:
           root: ~/
           paths:
