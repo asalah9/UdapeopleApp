@@ -24,7 +24,7 @@ commands:
     destroy-environment:
       description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
       parameters:
-          CIRCLE_WORKFLOW_ID: 
+          WORKFLOW_ID: 
             type: string
             default:  ${CIRCLE_WORKFLOW_ID:0:7}
       steps:
@@ -34,8 +34,8 @@ commands:
             command: |
               echo "Destroying FE | BE infrastructure"
               #aws s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
-              aws cloudformation delete-stack --stack-name "udapeople-backend-<< parameters.CIRCLE_WORKFLOW_ID >>"
-              aws cloudformation delete-stack --stack-name "udapeople-frontend-<< parameters.CIRCLE_WORKFLOW_ID >>"
+              aws cloudformation delete-stack --stack-name "udapeople-backend-<< parameters.WORKFLOW_ID >>"
+              aws cloudformation delete-stack --stack-name "udapeople-frontend-<< parameters.WORKFLOW_ID >>"
 
 
 
