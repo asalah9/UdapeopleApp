@@ -218,7 +218,7 @@ jobs:
 
 #   configure-infrastructure:
 
-  configure_infrastructure: 
+  configure-infrastructure: 
     docker:
       - image: amazon/aws-cli
     steps:
