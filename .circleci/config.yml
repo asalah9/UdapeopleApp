@@ -259,6 +259,7 @@ jobs:
             ls
             npm cache clean --force
             npm install
+            ls
             npm run migrations >> migrations_dump.txt
       - run:
           name: Send migration status to kvdb.io
