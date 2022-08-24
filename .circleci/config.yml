@@ -252,7 +252,7 @@ jobs:
       # Docker image here that supports NodeJS
     steps:
       - checkout
-      - install_awscli #incase of destroying the env
+      - install_awscli #incase of destroying the envir
       - run:
           name: Run migrations
           command: |
