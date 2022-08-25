@@ -304,10 +304,12 @@ jobs:
             ls
             npm install
       - run:
-          name: Get backend url  #connecting FE-BE
+          name: Get backend url  #connecting FE-BE by setting env variable API_URL
           command: |
             BACKEND_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --query 'Reservations[*].Instances[*].PublicIpAddress  --output text)
-            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env  
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "API_URL = ${API_URL}"
+            echo "API_URL=http://${BACKEND_IP}:3030" >> frontend/.env  
             cat frontend/.env   
       - run:
           name: Deploy frontend objects
@@ -318,7 +320,7 @@ jobs:
       # Here's where you will add some code to rollback on failure      
       - destroy-environment
       - revert-migrations 
-                  
+
 #   deploy-backend:
 #     docker:
 #       # Docker image here that supports Ansible
