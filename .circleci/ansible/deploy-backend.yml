@@ -28,15 +28,15 @@
 
 
 
-    - name: update cache and apt pkgs
-      apt:
-        update_cache: yes
-        upgrade: yes
+    # - name: update cache and apt pkgs
+    #   apt:
+    #     update_cache: yes
+    #     upgrade: yes
 
-    - name: "install python for Ansible."
-      apt:
-        name: python3
-        state: latest
+    # - name: "install python for Ansible."
+    #   apt:
+    #     name: python3
+    #     state: latest
 
 
   roles:
