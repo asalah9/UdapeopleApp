@@ -246,7 +246,6 @@ jobs:
           fingerprints: ["4c:64:3b:5d:0f:98:a5:c3:fb:f7:c8:1f:78:dc:55:fc"] # You can get this ID in the section where you registered the SSH Key
       - attach_workspace:
             at: ~/ 
-      - install_ansible
       - run:
           name: Configure server
           command: |
