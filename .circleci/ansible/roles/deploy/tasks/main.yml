@@ -1,4 +1,5 @@
 ---
+# Since archive package should exist inside files of ansible role
 - name: "Creates backend app directory"
   file:
     path: ~/backend-app
