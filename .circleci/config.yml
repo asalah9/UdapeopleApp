@@ -340,11 +340,14 @@ jobs:
           name: Install dependencies
           command: |
             cd backend
+            ls
             npm install
             npm run build
             tar -czf artifact.tar.gz dist/* package* #zip & archive the dist and packages
             cd ..
-            cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files #for ansible taskbook deploy
+            ls
+            cp backend/artifact.tar.gz /home/circleci/project/.circleci/ansible/roles/deploy/files #for ansible taskbook deploy
+            ls /home/circleci/project/.circleci/ansible/roles/deploy/files
       - run:
           name: Deploy backend
           command: |
