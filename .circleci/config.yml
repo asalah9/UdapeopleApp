@@ -442,12 +442,12 @@ jobs:
       - attach_workspace:
           at: ~/
       - run:
-          name: Get old stack workflow id
-          command: |
-            export OLD_WORKFLOW_ID=$(cat ~/textfile.txt)
-      - run:
           name: Remove old stacks and files
           command: |
+            pwd
+            ls
+            cat ~/textfile.txt
+            export OLD_WORKFLOW_ID=$(cat ~/textfile.txt)
             export STACKS=($(aws cloudformation list-stacks \
                 --query "StackSummaries[*].StackName" \
                 --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
