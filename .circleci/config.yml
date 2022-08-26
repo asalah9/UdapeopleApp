@@ -406,11 +406,26 @@ jobs:
       - install_awscli
       - install_nodejs
       - run:
+          name: Fetch and save the old Workflow ID (bucket name) responsible for the last release.
+          command: |
+            export OLD_WORKFLOW_ID=$(aws cloudformation \
+                      list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+                      --no-paginate --output text)
+            echo "Old Wokflow ID: $OLD_WORKFLOW_ID"
+            echo CIRCLE_WORKFLOW_ID "${CIRCLE_WORKFLOW_ID:0:7}"
+            aws cloudformation \
+            list-exports --query "Exports[?Name==\`WorkflowID\`].Value" \
+            --no-paginate --output text > ~/textfile.txt
+      - persist_to_workspace:
+          root: ~/
+          paths: 
+            - textfile.txt 
+      - run:
           name: Update cloudfront distribution
           command: |
                 aws cloudformation deploy \
                       --template-file .circleci/files/cloudfront.yml \
-                      --stack-name GreenStack \
+                      --stack-name InitialStack \
                       --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
                       --tags project=udapeople
       # Here's where you will add some code to rollback on failure  
